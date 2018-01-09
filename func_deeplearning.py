@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-#import jqdata
 import datetime
-#from jqlib.alpha101 import *
 import tushare as ts
 import pickle
 import os
@@ -28,8 +26,6 @@ def initialize_parameters(n_x, n_h, n_y):
     """
 
     np.random.seed(1)
-
-    ### START CODE HERE ### (≈ 4 lines of code)
     W1 = np.random.randn(n_h, n_x)*0.01
     b1 = np.zeros((n_h, 1))
     W2 = np.random.randn(n_y, n_h)*0.01
