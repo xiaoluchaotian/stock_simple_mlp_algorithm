@@ -7,56 +7,9 @@ import datetime
 import tushare as ts
 import pickle
 import os
-'''
-#从聚宽数据库中正确读取股票及因子数据，以及对应的前五日收益率数据
-def get_factors(fdate,factors):
-    q = query(
-        valuation.code,
-        balance.total_owner_equities/valuation.market_cap/100000000,#股东权益合计/流通股本
-        valuation.pe_ratio,#pe
-        income.net_profit/balance.total_owner_equities,#净利润/股东权益合计
-        income.net_profit/balance.total_assets,#净利润/资产总计
-        income.total_profit/income.operating_revenue,
-        income.net_profit/income.operating_revenue,
-        balance.total_liability/balance.total_assets,
-        balance.fixed_assets/balance.total_assets,
-        valuation.circulating_market_cap  #流通市值
-        ).filter(
-        valuation.code.in_(stocks),
-        valuation.circulating_market_cap
-    )
-    fdf = get_fundamentals(q, date=fdate)
-    fdf.index = fdf['code']
-    fdf.columns = ['code'] + factors
-    return fdf.iloc[:,-9:]
-#整理前五日收益率数据，并分类为是否上涨超过0.1%
-def timereturn(fdate):
-    d1 = datetime.datetime.strptime(fdate, '%Y-%m-%d')
-    delta1 = datetime.timedelta(days=1)
-    delta2 = datetime.timedelta(days=15)
-    d2=d1+delta1
-    d3=d1+delta2
-    ndate=d2.strftime('%Y-%m-%d')
-    bdate=d3.strftime('%Y-%m-%d')
-    getprice=get_price(stocks, start_date=ndate, end_date=bdate,frequency='daily', fields="open")["open"]
-    getprice_array=getprice.values
-    qw=np.matrix(getprice_array)
-    arrt=((qw[-1]-qw[0])/qw[0])/qw.shape[0]
-    arr=np.asarray(arrt)
-    qwer= np.zeros((1,arr.shape[1]))
-    for i in range(0, arr.shape[1]):
-        if arr[0,i] > 0.001:
-            qwer[0,i] = 1
-        else:
-            qwer[0,i] = 0
-    return qwer
-def normalize(fdate, factors):
-    x_origin=get_factors(fdate,factors).values.T
-    x_norm=np.linalg.norm(x_origin,ord=2,axis=1,keepdims=True)
-    x_normalize=np.asarray(np.matrix(x_origin/x_norm))
-    return x_normalize
 
-'''
+
+
 
 # initialize_parameters
 def initialize_parameters(n_x, n_h, n_y):
